@@ -55,6 +55,11 @@ background-color:#F9F5EB;
     padding-top: 42px;
 }
 
+
+.body{
+    width: 100vh;
+}
+
 header{
 
     background-color: #214B9A;
@@ -98,14 +103,15 @@ header{
 
 
 h1{
+    padding-bottom: 10px; 
     line-height: 56px;
     font-size: 49px;
+    color: #000;
 }
 
-h1 span{
- color: #DFA716;
-}
-
+ span{
+    color: #DFA716;
+   }
 
 section p{
     font-size: 14px;
@@ -145,9 +151,6 @@ footer {
         font-size: 14px;
         color: #ffff;
     }
-
-
-
 
 /*Sobre*/
 
@@ -207,9 +210,6 @@ main{
     box-shadow: 0px, 8px, 16px rgba(0, 0, 0, 2);
 }
 
-
-
-
 /* referente a lojinha*/
 
 
@@ -228,6 +228,7 @@ main{
     border: none;
     border-radius: 4px;
     margin-right: 10px;
+   
   }
   
 #searchButton{
@@ -257,6 +258,99 @@ img {
     height: auto;
   }
 
+
+
+ /* usuario */
+
+ .user2{
+    margin-bottom: 25px;
+    align-items: center;
+    text-align: center;
+ }
+
+
+.cards{
+    display: flex;
+    gap:20px;
+}
+
+ .card {
+    color: #214B9A;
+    width: 200px;
+    height: 200px;
+    background-color:#214B9A;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+
+  }
+
+
+
+.card:hover{
+    border: 1px solid #DFA716;
+    color: #DFA716;
+    
+}
+.barra{
+   margin-bottom: 50px;
+
+}
+
+
+.card{
+   
+    align-items: center;
+    text-align: center;
+}
+
+.mulheres{
+    width: 400px;
+}
+
+
+.tudo{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cint{
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.cards button {
+    border: none;
+    background-color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+   
+}
+
+.cards button:hover {
+    background-color:  #DFA716;
+}
+
+.cards button a {
+    text-decoration: none;
+    
+    font-weight: 500;
+    color: #fff;
+}
+
+.hh{
+   margin: 10px;
+   padding: 10px; 
+}
 
   /* Ainda precisa ajustar */
 
@@ -297,4 +391,3 @@ img {
 }
 
   }
-  
