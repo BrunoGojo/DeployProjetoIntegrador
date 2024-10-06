@@ -12,15 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the site in the jekyll/builder container
-      run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
-        
-    - name: Checkout
-      uses: actions/checkout@v4.2.0
-      
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.2.1-node20
+      # 1. Checkout do código do repositório
+      - uses: actions/checkout@v4
+
+      # 2. Constrói o site usando o contêiner do Jekyll
+      - name: Build the site in the Jekyll container
+        run: |
+          docker run \
+          -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+          jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+
+      # 3. Fazer upload do build (_site) como artefato
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.2.1
+        with:
+          name: site-build
+          path: _site
