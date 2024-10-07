@@ -1,0 +1,48 @@
+name: CI for GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # O pipeline será acionado quando houver um push na branch main
+  pull_request:
+    branches:
+      - main  # Ou quando um pull request for criado/atualizado
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js (se necessário para ferramentas de build/test)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install dependencies (se necessário)
+        run: npm install
+
+      - name: Build project
+        run: npm run build  # Substitua pelo comando de build do seu projeto (se aplicável)
+
+      - name: Test project
+        run: npm run test  # Substitua pelo comando de teste do seu projeto (se aplicável)
+
+      - name: Lint project
+        run: npm run lint  # Substitua pelo comando do linter (se aplicável)
+
+  deploy:
+    needs: build  # Só executa se o job de build for bem-sucedido
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public  # Substitua pela pasta gerada para o GitHub Pages
