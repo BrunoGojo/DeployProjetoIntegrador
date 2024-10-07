@@ -1,22 +1,25 @@
-name: Deploy HTML site to GitHub Pages
+stages:
+  - build
+  - test
+  - analyze
 
-on:
-  push:
-    branches:
-      - main  # O pipeline será acionado quando houver um push na branch main
-  pull_request:
-    branches:
-      - main  # Ou quando um pull request for criado/atualizado
+build:
+  stage: build
+  script:
+    - echo "Compilando o código..."
+    - make build
+  artifacts:
+    paths:
+      - build/
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v2
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./  # Diretório onde estão os arquivos HTML
+test:
+  stage: test
+  script:
+    - echo "Executando testes..."
+    - make test
+
+analyze:
+  stage: analyze
+  script:
+    - echo "Analisando a qualidade do código..."
+    - pylint src/
