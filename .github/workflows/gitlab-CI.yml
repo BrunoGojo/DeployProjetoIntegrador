@@ -1,0 +1,41 @@
+# Define as etapas do pipeline
+stages:
+  - build
+  - test
+  - analyze
+
+# Etapa de Build
+build_job:
+  stage: build
+  script:
+    - echo "Copiando arquivos HTML para a pasta de build..."
+    - mkdir -p build
+    - cp -r *.html build/  # Copia todos os arquivos HTML para a pasta build
+  artifacts:  # Define os artefatos a serem salvos
+    paths:
+      - build/
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Etapa de Teste
+test_job:
+  stage: test
+  script:
+    - echo "Executando testes básicos de validação..."
+    - apt-get update && apt-get install -y tidy  # Instala o Tidy para validação de HTML
+    - tidy -q -e build/*.html  # Valida todos os arquivos HTML na pasta build
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+
+# Etapa de Análise
+analyze_job:
+  stage: analyze
+  script:
+    - echo "Analisando a qualidade do código HTML..."
+    - apt-get update && apt-get install -y tidy  # Instala o Tidy para análise de HTML
+    - tidy -q -e build/*.html  # Executa a análise em todos os arquivos HTML da pasta build
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
